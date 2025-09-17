@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Stock Prediction web app">
     <meta name="author" content="cpp-css">
-    <title>Stock Prediction</title>
+    <title>Login</title>
 
     <!-- Styles -->
     <link rel="icon" href="favicon.ico">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Javascript -->
+    <script src="/scripts/index.js"></script>
 </head>
 <body>
     <div class="left-container">
@@ -21,19 +22,20 @@
             <img src="/assets/random-logo-removebg-preview.png" />
         </div>
     </div>
-    <div class="right-side-container">
-            <div class="login-container">
-                <h1>Ur Mum</h1>
-                <div class="input-box">
-                    <input type="email" placeholder="Enter Email" maxlength="50"/>
-                    <i class="fa fa-envelope" style="color: white;"></i>
-                </div>
-                <div class="input-box">
-                    <input type="text" placeholder="Enter Password" maxlength="50"/>
-                    <i class="fa fa-eye" style="color: white;"></i>
-                    <!-- <i class="fa-solid fa-eye-slash"></i> -->
-                </div>
-                <button id="login-btn">Login</button>
+    <div class="right-container">
+        <div class="login-container">
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="email" placeholder="Enter Email" maxlength="50"/>
+                <i class="fa fa-envelope" style="color: white;"></i>
             </div>
+            <div class="input-box">
+                <input type="password" placeholder="Enter Password" maxlength="50"/>
+                <i class="fa fa-eye" onclick="togglePasswordVisibility(this)"></i>
+                <i class="fa fa-eye-slash" onclick="togglePasswordVisibility(this)"></i>
+            </div>
+            <button id="login-btn" onclick="login()">Login</button>
+            <p id="create-acc-msg">Don't have an account? Click <a href="/pages/createAcc.html">here</a> to create one.</p>
         </div>
+    </div>
 </body>
