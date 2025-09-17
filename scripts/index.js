@@ -30,5 +30,10 @@ function togglePasswordVisibility(element) {
 }
 
 function login() {
-    alert("Logging In!");
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+
+    if (password.length < 8) {
+        console.log('Password is too short');
+    }
 }

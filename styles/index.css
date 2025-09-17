@@ -2,12 +2,25 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    width: 100vw;
+    height: 10vh;
+    background-color: #f9ad16;
+    box-shadow: 0px 1px 2px 1px rgba(24, 24, 24, .3);
+    z-index: 70;
+}
+
+.under-navbar {
+    display: flex;
     flex-direction: row;
 }
 
 .left-container {
     width: 67vw;
-    height: 100vh;
+    height: 90vh;
     margin: 0;
     background-color: #1e4d2b;
     display: flex;
@@ -51,7 +64,7 @@ body {
 
 .right-container {
     width: 33vw;
-    height: 100vh;
+    height: 90vh;
     background-color: black;
     border-left: 2px solid white;
     display: flex;
@@ -67,7 +80,7 @@ body {
     align-items: center;
 
     width: 65%;
-    height: 40%;
+    height: 44%;
 }
 
 .login-container h1 {
@@ -104,7 +117,7 @@ body {
     border: 2px solid white;
     color: white;
     background-color: transparent;
-    margin-top: 5px;
+    margin-top: 15px;
 }
 
 #login-btn:hover {
@@ -123,6 +136,54 @@ body {
     to {
         transform: rotate(360deg);
     }
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Style the label to look like a checkbox */
+label {
+  display: inline-block;
+  position: relative;
+  padding-left: 20px; /* Space for the custom checkbox */
+  cursor: pointer;
+  font-family: sans-serif;
+  user-select: none; /* Prevents text selection on label click */
+  font-size: 14px;
+}
+
+/* Create the custom checkbox square using a pseudo-element */
+label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Style the custom checkbox when the input is checked */
+input[type="checkbox"]:checked + label::before {
+  background-color: #f9ad16;
+  border-color: #f9ad16;
+}
+
+/* Add a custom checkmark using a pseudo-element on the label */
+input[type="checkbox"]:checked + label::after {
+  content: '✔';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 12px;
 }
 
 @keyframes logo-bounce {

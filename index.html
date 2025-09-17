@@ -17,25 +17,34 @@
     <script src="/scripts/index.js"></script>
 </head>
 <body>
-    <div class="left-container">
-        <div class="img-circle">
-            <img src="/assets/random-logo-removebg-preview.png" />
-        </div>
+    <div class="navbar">
+
     </div>
-    <div class="right-container">
-        <div class="login-container">
-            <h1>Login</h1>
-            <div class="input-box">
-                <input type="email" placeholder="Enter Email" maxlength="50"/>
-                <i class="fa fa-envelope" style="color: white;"></i>
+    <div class="under-navbar">
+        <div class="left-container">
+            <div class="img-circle">
+                <img src="/assets/random-logo-removebg-preview.png" />
             </div>
-            <div class="input-box">
-                <input type="password" placeholder="Enter Password" maxlength="50"/>
-                <i class="fa fa-eye" onclick="togglePasswordVisibility(this)"></i>
-                <i class="fa fa-eye-slash" onclick="togglePasswordVisibility(this)"></i>
+        </div>
+        <div class="right-container">
+            <div class="login-container">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input id="email" type="email" placeholder="Enter Email" maxlength="50"/>
+                    <i class="fa fa-envelope" style="color: white;"></i>
+                </div>
+                <div class="input-box">
+                    <input id="password" type="password" placeholder="Enter Password" maxlength="50"/>
+                    <i class="fa fa-eye" onclick="togglePasswordVisibility(this)"></i>
+                    <i class="fa fa-eye-slash" onclick="togglePasswordVisibility(this)"></i>
+                </div>
+                <div id="checkbox-div" style="display: flex; flex-direction: row; align-self: start; margin-top: 5px;">
+                    <input id="rmbr-me" type="checkbox"/>
+                    <label for="rmbr-me" style="color: white;">Remember me.</label>
+                </div>
+                <button id="login-btn" onclick="login()">Login</button>
+                <p id="create-acc-msg">Don't have an account? Click <a href="/pages/createAcc.html">here</a> to create one.</p>
             </div>
-            <button id="login-btn" onclick="login()">Login</button>
-            <p id="create-acc-msg">Don't have an account? Click <a href="/pages/createAcc.html">here</a> to create one.</p>
         </div>
     </div>
 </body>
