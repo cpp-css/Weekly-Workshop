@@ -103,12 +103,16 @@ body {
     align-items: center;
 }
 
+
+
 /* Everything Else */
 .under-navbar {
     display: flex;
     flex-direction: row;
 }
 
+
+/* LEFT SIDE CONTAINER */
 .left-container {
     width: 67vw;
     height: 90vh;
@@ -141,10 +145,6 @@ body {
     cursor: pointer;
 }
 
-/* .img-circle:hover {
-    animation: logo-spin 2s linear;
-} */
-
 .img-circle:hover {
     animation: logo-bounce 1s infinite;
 }
@@ -153,6 +153,8 @@ body {
     scale: .5;
 }
 
+
+/* RIGHT SIDE CONTAINER */
 .right-container {
     width: 33vw;
     height: 90vh;
@@ -201,6 +203,49 @@ body {
     outline: none;
 }
 
+input[type="checkbox"] {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+  font-family: sans-serif;
+  user-select: none;
+  font-size: 14px;
+}
+
+label::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked + label::before {
+  background-color: #f9ad16;
+  border-color: #f9ad16;
+}
+
+input[type="checkbox"]:checked + label::after {
+  content: '✔';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 12px;
+}
+
 #login-btn {
     width: 70%;
     height: 13%;
@@ -218,63 +263,6 @@ body {
 
 #create-acc-msg {
     color: white;
-}
-
-@keyframes logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Hide the default checkbox */
-input[type="checkbox"] {
-  display: none;
-}
-
-/* Style the label to look like a checkbox */
-label {
-  display: inline-block;
-  position: relative;
-  padding-left: 20px; /* Space for the custom checkbox */
-  cursor: pointer;
-  font-family: sans-serif;
-  user-select: none; /* Prevents text selection on label click */
-  font-size: 14px;
-}
-
-/* Create the custom checkbox square using a pseudo-element */
-label::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 11px;
-  height: 11px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  border-radius: 3px;
-  transition: all 0.2s ease-in-out;
-}
-
-/* Style the custom checkbox when the input is checked */
-input[type="checkbox"]:checked + label::before {
-  background-color: #f9ad16;
-  border-color: #f9ad16;
-}
-
-/* Add a custom checkmark using a pseudo-element on the label */
-input[type="checkbox"]:checked + label::after {
-  content: '✔';
-  position: absolute;
-  left: 3px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #fff;
-  font-size: 12px;
 }
 
 @keyframes logo-bounce {
