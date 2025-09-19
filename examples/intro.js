@@ -9,17 +9,17 @@ const app_name = "Bronks App"; // constant string value
 
 console.log("Project Name:", app_name); // console printing
 
-// creating variables
+// // creating variables
 let user_name = "BiggyTiggy" //string
 let user_pass = "password123" 
 let isAdmin = true; // boolean value
 let user_age = 25; // number value
 
-// input html elements for conditional checking we'll call it var for now
+// // input html elements for conditional checking we'll call it var for now
 let user_username_input = "BiggyTiggy";
 let user_password_input = "password123";
 
-// creating an object to store user data
+// // creating an object to store user data
 let user_data = {
     username: user_name,
     password: user_pass,
@@ -29,7 +29,7 @@ user_data.age = user_age; // adding new key value pair to object
 
 
 console.log("User Data:", user_data);
-// conditional checking
+// // conditional 
 if(user_password_input === user_data.password && user_username_input === user_data.username){ 
     // other conditional joins would be || (OR) and ! (NOT)
     console.log("Login Successful! Welcome", user_data.username);
@@ -46,7 +46,7 @@ user_stock = ["AAPL", "GOOGL", "MSFT", "AMZN"]; // array of stocks
 user_data.ownedStocks = user_stock; // adding array to object
 user_data["ownedStocks"] = user_stock; // another way to add array to object
 
-// printing user owned stocks
+// // printing user owned stocks
 console.log("User Owned Stocks:", user_data.ownedStocks); 
 
 available_stocks = [{ // in a real world scenario this is a database
@@ -91,7 +91,7 @@ available_stocks = [{ // in a real world scenario this is a database
     price: 590.00,
     isAvailable: true
 }];
-// function to get user stocks details from available stocks
+// // function to get user stocks details from available stocks
 function getUserStocksOld(user,available_stocks){
     let stocks = []
     user.ownedStocks.forEach(stock => { // foreach loop
@@ -104,9 +104,9 @@ function getUserStocksOld(user,available_stocks){
     return stocks;
 }
 
-console.log("User Stocks Details:", getUserStocksOld(user_data,available_stocks));
+console.log("User Stocks Details:", getUserStocksOld(user_data,available_stocks)); 
 
-// using set to store unique stocks
+// // using set to store unique stocks
 user_stock = new Set(["AAPL", "GOOGL", "MSFT", "AMZN"]); // set of stocks
 console.log("User Owned Stocks:", user_data.ownedStocks); // notice that this is still an array not a set
 user_data.ownedStocks = user_stock;
@@ -158,7 +158,8 @@ function getUserStocks(user,available_stocks){
     });
     return stocks;
 }
-// objects are reference types so we can modify them directly
+console.log(getUserStocksOld(user_data,available_stocks))
+// // objects are reference types so we can modify them directly
 function alterUserStock(user, stockSymbol, add=true){ // default value of add is set to true
     if (add) {
         user.ownedStocks.add(stockSymbol);
@@ -172,13 +173,14 @@ alterUserStock(user_data, "AAPL", false);
 
 console.log("User Stocks Details:", getUserStocks(user_data,available_stocks));
 
-// since both alterUserStock and getUser stocks both deal with the user object, we can create a class to handle it
+// // since both alterUserStock and getUser stocks both deal with the user object, we can create a class to handle it
 class User {
-    // constructor to initialize user object is ran when new object is created
+//     // constructor to initialize user object is ran when new object is created
     constructor(data) {
         this.ownedStocks = new Set(data);
+        console.log("created new objects")
     }
-    //methods are simialr to functions but they are attatched to objects
+//     //methods are simialr to functions but they are attatched to objects
     getStocks(available_stocks){
         let stocks = [];
         this.ownedStocks.forEach(stock => {
