@@ -33,6 +33,8 @@ function login() {
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;
 
+    alert(`Attempting login with email: ${email} and password: ${password}!`);
+
     if (password.length < 8) {
         console.log('Password is too short');
     }
