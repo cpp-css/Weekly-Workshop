@@ -4,9 +4,14 @@
     background-color: orange;
 } */
 
-#myDiv {
+div {
     background-color: blue;
+    border-radius: 5px;
 }
+
+/* #myDiv {
+    background-color: purple;
+} */
 
 .colorbox {
     background-color: pink;
@@ -22,10 +27,10 @@ h1 {
     width: 400px;
     height: 50vh;
     display: flex;
-    flex-direction: row;
-    /* justify-content: ; */
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .flexbox-item {
@@ -33,11 +38,11 @@ h1 {
     height: 80px;
     background-color: green;
     margin: 5px;
-    animation: color-change 3s linear infinite forwards;
+    /* animation: color-change 3s linear infinite forwards; */
 }
 
 .flexbox-item:hover {
-    animation: bouncybox 2s linear forwards;
+    /* animation: bouncybox 2s linear forwards; */
 }
 
 @keyframes color-change {
