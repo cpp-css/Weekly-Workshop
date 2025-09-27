@@ -1,3 +1,12 @@
+# To install react-router-dom and setup
+
+npx create-react-app stockpredictor
+npm install react-router-dom
+npm start
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
