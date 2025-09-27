@@ -265,6 +265,17 @@ input[type="checkbox"]:checked + label::after {
     color: white;
 }
 
+#checkbox-div {
+    display: flex;
+    flex-direction: row;
+    align-self: start;
+    margin-top: 5px;
+}
+
+#checkbox-div label {
+    color: white;
+}
+
 @keyframes logo-bounce {
     0%, 100% {
         transform: translateY(0);
