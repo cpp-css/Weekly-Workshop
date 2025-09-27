@@ -1,8 +1,8 @@
 # To install react-router-dom and setup
 
-npx create-react-app stockpredictor
-npm install react-router-dom
-npm start
+npx create-react-app stockpredictor <br/>
+npm install<br/>
+npm start <br/>
 
 
 
