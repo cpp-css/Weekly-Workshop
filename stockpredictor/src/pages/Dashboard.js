@@ -18,22 +18,82 @@ const MOCK_KPIS = [
 ];
 
 const RAW_SERIES = [
-  // Past
-  { x: "P1", price: 172.3 },
-  { x: "P2", price: 174.8 },
-  { x: "P3", price: 178.6 },
-  { x: "P4", price: 181.2 },
-  { x: "P5", price: 179.4 },
-  { x: "P6", price: 176.1 },
-  { x: "P7", price: 177.8 },
-  { x: "P8", price: 182.5 },
-  { x: "P9", price: 185.7 },
-  { x: "P10", price: 183.2 },
-  { x: "P11", price: 186.9 },
-  { x: "P12", price: 189.1 },
-  { x: "P13", price: 188.0 },
-  { x: "P14", price: 190.4 },
-  { x: "P15", price: 187.7 },
+  // Past (70 points for 3M to work properly)
+  { x: "P1", price: 150.2 },
+  { x: "P2", price: 152.1 },
+  { x: "P3", price: 151.8 },
+  { x: "P4", price: 153.4 },
+  { x: "P5", price: 155.7 },
+  { x: "P6", price: 154.3 },
+  { x: "P7", price: 156.9 },
+  { x: "P8", price: 158.1 },
+  { x: "P9", price: 157.5 },
+  { x: "P10", price: 159.8 },
+  { x: "P11", price: 161.2 },
+  { x: "P12", price: 160.4 },
+  { x: "P13", price: 162.7 },
+  { x: "P14", price: 164.3 },
+  { x: "P15", price: 163.9 },
+  { x: "P16", price: 165.8 },
+  { x: "P17", price: 167.2 },
+  { x: "P18", price: 166.5 },
+  { x: "P19", price: 168.9 },
+  { x: "P20", price: 170.1 },
+  { x: "P21", price: 169.7 },
+  { x: "P22", price: 171.4 },
+  { x: "P23", price: 173.2 },
+  { x: "P24", price: 172.8 },
+  { x: "P25", price: 174.6 },
+  { x: "P26", price: 176.3 },
+  { x: "P27", price: 175.9 },
+  { x: "P28", price: 177.8 },
+  { x: "P29", price: 179.4 },
+  { x: "P30", price: 178.9 },
+  { x: "P31", price: 180.7 },
+  { x: "P32", price: 182.1 },
+  { x: "P33", price: 181.6 },
+  { x: "P34", price: 183.4 },
+  { x: "P35", price: 185.2 },
+  { x: "P36", price: 184.8 },
+  { x: "P37", price: 186.5 },
+  { x: "P38", price: 188.1 },
+  { x: "P39", price: 187.7 },
+  { x: "P40", price: 189.3 },
+  { x: "P41", price: 190.8 },
+  { x: "P42", price: 190.2 },
+  { x: "P43", price: 191.9 },
+  { x: "P44", price: 193.4 },
+  { x: "P45", price: 192.8 },
+  { x: "P46", price: 194.6 },
+  { x: "P47", price: 196.1 },
+  { x: "P48", price: 195.5 },
+  { x: "P49", price: 197.2 },
+  { x: "P50", price: 198.7 },
+  { x: "P51", price: 198.1 },
+  { x: "P52", price: 199.8 },
+  { x: "P53", price: 201.3 },
+  { x: "P54", price: 200.7 },
+  { x: "P55", price: 202.4 },
+  { x: "P56", price: 203.9 },
+  { x: "P57", price: 203.3 },
+  { x: "P58", price: 205.1 },
+  { x: "P59", price: 206.6 },
+  { x: "P60", price: 206.0 },
+  { x: "P61", price: 172.3 },
+  { x: "P62", price: 174.8 },
+  { x: "P63", price: 178.6 },
+  { x: "P64", price: 181.2 },
+  { x: "P65", price: 179.4 },
+  { x: "P66", price: 176.1 },
+  { x: "P67", price: 177.8 },
+  { x: "P68", price: 182.5 },
+  { x: "P69", price: 185.7 },
+  { x: "P70", price: 183.2 },
+  { x: "P71", price: 186.9 },
+  { x: "P72", price: 189.1 },
+  { x: "P73", price: 188.0 },
+  { x: "P74", price: 190.4 },
+  { x: "P75", price: 187.7 },
   { x: "T0", price: 188.9 }, // Today
 
   // Forecast
@@ -72,23 +132,11 @@ function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [timeframe, setTimeframe] = useState("1M");
 
-  const allPast = useMemo(
-    () =>
-      slicePast(
-        RAW_SERIES.filter((d) => !d.isFuture),
-        "1M"
-      ),
-    []
-  );
-  const allFuture = useMemo(
-    () =>
-      slicePast(
-        RAW_SERIES.filter((d) => d.isFuture),
-        "1M"
-      ),
-    []
-  );
+  // Get all historical and future data (not filtered by timeframe)
+  const allPast = useMemo(() => RAW_SERIES.filter((d) => !d.isFuture), []);
+  const allFuture = useMemo(() => RAW_SERIES.filter((d) => d.isFuture), []);
 
+  // Apply timeframe filtering
   const past = useMemo(
     () => slicePast(allPast, timeframe),
     [allPast, timeframe]
@@ -96,9 +144,14 @@ function Dashboard() {
 
   const futureWithAnchor = useMemo(() => {
     const anchor = past[past.length - 1] ?? allPast[allPast.length - 1];
+    if (!anchor) return allFuture;
+
+    // Calculate the adjustment to connect future data to the last visible historical point
+    const adjustment = anchor.price - allFuture[0]?.price || 0;
+
     return allFuture.map((d) => ({
       ...d,
-      price: d.price + (anchor.price - past[past.length - 1]?.price || 0),
+      price: d.price + adjustment,
     }));
   }, [allFuture, past, allPast]);
 
@@ -106,25 +159,25 @@ function Dashboard() {
   const combinedData = useMemo(() => {
     const combined = [...past];
     // Add future data points, ensuring they connect properly
-    futureWithAnchor.forEach(point => {
+    futureWithAnchor.forEach((point) => {
       combined.push({
         ...point,
         futurePrice: point.price,
-        price: null // Set historical price to null for future points
+        price: null, // Set historical price to null for future points
       });
     });
-    
+
     // Also add future prices to the last historical point for smooth connection
     if (combined.length > 0 && futureWithAnchor.length > 0) {
       const lastHistoricalIndex = past.length - 1;
       if (lastHistoricalIndex >= 0) {
         combined[lastHistoricalIndex] = {
           ...combined[lastHistoricalIndex],
-          futurePrice: combined[lastHistoricalIndex].price
+          futurePrice: combined[lastHistoricalIndex].price,
         };
       }
     }
-    
+
     return combined;
   }, [past, futureWithAnchor]);
 
