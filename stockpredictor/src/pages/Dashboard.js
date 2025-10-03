@@ -1,5 +1,5 @@
 import "../styles/Dashboard.css";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -44,7 +44,7 @@ const RAW_SERIES = [
   { x: "F5", price: 199.6, isFuture: true },
 ];
 
-const TF_COUNTS = { "1W": 5, "1M": 22, "3M": 66, YTD: Infinity };
+const TF_COUNTS = { "1W": 7, "1M": 30, "3M": 66, YTD: Infinity };
 
 const MOCK_SIDEBAR = {
   price: 198.45,
@@ -62,8 +62,77 @@ function SidebarRow({ label, value }) {
   );
 }
 
+function slicePast(pastArr, tfkey) {
+  const count = TF_COUNTS[tfkey] ?? Infinity;
+  if (count === Infinity) return pastArr;
+  return pastArr.slice(-count);
+}
+
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [timeframe, setTimeframe] = useState("1M");
+
+  const allPast = useMemo(
+    () =>
+      slicePast(
+        RAW_SERIES.filter((d) => !d.isFuture),
+        "1M"
+      ),
+    []
+  );
+  const allFuture = useMemo(
+    () =>
+      slicePast(
+        RAW_SERIES.filter((d) => d.isFuture),
+        "1M"
+      ),
+    []
+  );
+
+  const past = useMemo(
+    () => slicePast(allPast, timeframe),
+    [allPast, timeframe]
+  );
+
+  const futureWithAnchor = useMemo(() => {
+    const anchor = past[past.length - 1] ?? allPast[allPast.length - 1];
+    return allFuture.map((d) => ({
+      ...d,
+      price: d.price + (anchor.price - past[past.length - 1]?.price || 0),
+    }));
+  }, [allFuture, past, allPast]);
+
+  // Combine past and future data for overlapping lines
+  const combinedData = useMemo(() => {
+    const combined = [...past];
+    // Add future data points, ensuring they connect properly
+    futureWithAnchor.forEach(point => {
+      combined.push({
+        ...point,
+        futurePrice: point.price,
+        price: null // Set historical price to null for future points
+      });
+    });
+    
+    // Also add future prices to the last historical point for smooth connection
+    if (combined.length > 0 && futureWithAnchor.length > 0) {
+      const lastHistoricalIndex = past.length - 1;
+      if (lastHistoricalIndex >= 0) {
+        combined[lastHistoricalIndex] = {
+          ...combined[lastHistoricalIndex],
+          futurePrice: combined[lastHistoricalIndex].price
+        };
+      }
+    }
+    
+    return combined;
+  }, [past, futureWithAnchor]);
+
+  // tight y-domain for visible series
+  const allVisible = [...past, ...futureWithAnchor];
+  const minPrice = Math.min(...allVisible.map((d) => d.price));
+  const maxPrice = Math.max(...allVisible.map((d) => d.price));
+  const pad = Math.max(1, Math.round((maxPrice - minPrice) * 0.1));
 
   return (
     <div>
@@ -72,22 +141,56 @@ function Dashboard() {
         <h1>Dashboard</h1>
         <p>Historical vs. forecast price</p>
 
+        {/* KPIs */}
+        <div className="kpi-container">
+          {MOCK_KPIS.map((kpi) => (
+            <div key={kpi.label} className="kpi-box">
+              <div className="kpi-value">{kpi.value}</div>
+              <div className="kpi-label">{kpi.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Button filters */}
+        <div className="button-group">
+          {Object.keys(TF_COUNTS).map((tf) => (
+            <button
+              key={tf}
+              className="filter-button"
+              onClick={() => setTimeframe(tf)}
+            >
+              {tf}
+            </button>
+          ))}
+        </div>
+
         {/* Chart */}
         <div>
           <h3>Chart</h3>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
-              data={RAW_SERIES}
+              data={combinedData}
               margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="x" />
-              <YAxis domain={["dataMin - 5", "dataMax + 5"]} />
+              <XAxis dataKey="x" tick={false} />
+              <YAxis domain={[minPrice - pad, maxPrice + pad]} tickCount={6} />
               <Tooltip />
+              {/* Historical price line */}
               <Line
                 type="monotone"
                 dataKey="price"
                 stroke="#8884d8"
+                strokeWidth={2}
+                dot={false}
+              />
+              {/* Future price line */}
+              <Line
+                type="monotone"
+                dataKey="futurePrice"
+                stroke="#82ca9d"
+                strokeDasharray="5 5"
+                strokeWidth={2}
                 dot={false}
               />
             </LineChart>
