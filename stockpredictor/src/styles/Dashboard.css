@@ -1,0 +1,36 @@
+.sidebar-row {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 0;
+  margin: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.sidebar-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.sidebar-value {
+  color: #333;
+}
+
+.sidebar-expanded {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 1rem;
+}
+
+.sidebar-collapsed {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 1rem;
+}

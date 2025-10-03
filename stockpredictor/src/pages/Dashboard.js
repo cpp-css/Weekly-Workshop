@@ -1,3 +1,5 @@
+import "../styles/Dashboard.css";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -51,10 +53,20 @@ const MOCK_SIDEBAR = {
   dailyChangePct: 0.54,
 };
 
+function SidebarRow({ label, value }) {
+  return (
+    <div className="sidebar-row">
+      <div className="sidebar-value">{value}</div>
+      <div className="sidebar-label">{label}</div>
+    </div>
+  );
+}
+
 function Dashboard() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   return (
     <div>
-      <div></div>
       {/* LEFT */}
       <div className="left-column">
         <h1>Dashboard</h1>
@@ -82,6 +94,26 @@ function Dashboard() {
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* RIGHT SIDEBAR */}
+      {sidebarOpen && (
+        <div className="sidebar-expanded">
+          <button onClick={() => setSidebarOpen(false)}>Close</button>
+          <SidebarRow label="Price" value={MOCK_SIDEBAR.price} />
+          <SidebarRow label="Volume" value={MOCK_SIDEBAR.volume} />
+          <SidebarRow label="Ratio" value={MOCK_SIDEBAR.ratio} />
+          <SidebarRow
+            label="Daily Change"
+            value={MOCK_SIDEBAR.dailyChangePct}
+          />
+        </div>
+      )}
+      {!sidebarOpen && (
+        <div className="sidebar-collapsed">
+          <button onClick={() => setSidebarOpen(true)}>Open</button>
+          closed
+        </div>
+      )}
     </div>
   );
 }
